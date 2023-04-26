@@ -1,6 +1,5 @@
 const axios = require('axios');
-// poner en cada end point la ruta de la base de datos API KEY
-const Dog = require('../models/Dog');
+const { Dog, Temperaments} = require('../db.js');
 
 //creamos la variable url para no repetir el link de la api
 const url = 'https://api.thedogapi.com/v1/breeds'
@@ -19,12 +18,6 @@ async function getDogs(API_KEY, name) {
             name: dog.name,
             altura: dog.height.metric,
             peso: dog.weight.metric,
-            alturaMax: dog.height.metric.split(' - ')[1],
-            alturaMin: dog.height.metric.split(' - ')[0],
-            pesoMax: dog.weight.metric.split(' - ')[1],
-            pesoMin: dog.weight.metric.split(' - ')[0],
-            edadMax: dog.life_span.split(' - ')[1],
-            edadMin: dog.life_span.split(' - ')[0],
             colorFondo: dog.bred_for,
             años_de_vida: dog.life_span,
         }));
@@ -33,6 +26,7 @@ async function getDogs(API_KEY, name) {
         throw new Error(`No se pudo obtener la información de la API: ${error.message}`);
     }
 }
+
 
 // 📍 GET | /dogs/:idRaza
 
@@ -62,6 +56,7 @@ async function getDogsByRazaId(id) {
     }
 }
 
+
 // GET | /dogs/name?="..."
 // Obtener un listado de las razas de perro que contengan la palabra ingresada como query parameter
 // Si no existe ninguna raza de perro mostrar un mensaje adecuado
@@ -89,16 +84,27 @@ async function getDogsName(name, API_KEY) {
 // 📍 GET | /temperaments
 // Obtiene todos los temperamentos existentes.
 // Estos deben ser obtenidos de la API(se evaluará que no haya hardcodeo).Luego de obtenerlos de la API, deben ser guardados en la base de datos para su posterior consumo desde allí.
+// ver temperamentos y buscarlos por nombre
+// pedir de la api y guardarlos en la base de datos
+
 
 async function getTemperaments(API_KEY) {
     try {
         const dogs = await axios.get(`${url}?api_key=${API_KEY}`)
             .then(response => response.data);
-        const temperaments = dogs.map((dog) => dog.temperament);
-        const temperamentsArray = temperaments.map((temperament) => temperament.split(', '));
-        const temperamentsFlat = temperamentsArray.flat();
+        const dataDog = dogs.map((dog) => dog.temperament);
+        const temperaments = dataDog.map((temperament) => {
+            if (temperament) {
+                return temperament.split(', ');
+            } else {
+                return [];
+            }
+        });
+        const temperamentsFlat = temperaments.flat();
         const temperamentsUnique = [...new Set(temperamentsFlat)];
-        return temperamentsUnique;
+        const temperamentsData = temperamentsUnique.map((temperament) => ({ name: temperament }));
+        const temperamentsDB = await Temperaments.bulkCreate(temperamentsData);
+        return temperamentsDB;
     } catch (error) {
         throw new Error(`No se pudo obtener la información de la API: ${error.message}`);
     }
@@ -108,6 +114,29 @@ async function getTemperaments(API_KEY) {
 // Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
 // Toda la información debe ser recibida por body.
 // Debe crear la raza de perro en la base de datos, y esta debe estar relacionada con los temperamentos indicados(al menos uno).
+// [ ] Si el perro ya se encuentra creado, debe devolver un error.
+// [ ] Si se intenta crear un perro con un temperamento que no existe, debe devolver un error.
+// [ ] Si todo está OK, debe devolver el objeto de la raza de perro creado.
+
+
+async function createDog(dog) {
+    try {
+        const newDog = await Dog.create(dog);
+        if (Array.isArray(dog.temperamentos)) {
+            await Promise.all(
+                dog.temperamentos.map(async temperament => {
+                    const newTemp = await Temperaments.findOrCreate({
+                        where: { nombre: temperament }
+                    });
+                    await newDog.addTemperament(newTemp[0]);
+                })
+            );
+        }
+        return newDog;
+    } catch (error) {
+        throw new Error(`No se pudo crear el perro: ${error.message}`);
+    }
+}
 
 
 
@@ -115,30 +144,13 @@ exports.getDogs = getDogs;
 exports.getDogsByRazaId = getDogsByRazaId;
 exports.getDogsName = getDogsName;
 exports.getTemperaments = getTemperaments;
+exports.createDog = createDog;
 
 
 
 
 
-/*
-const dog = await axios.get(`${url}/${id}`)
-        .then(response => response.data))
-        const dataDog = {
-            id: dogs.id,
-            imagen: dogs.image,
-            name: dogs.name,
-            altura: dogs.height.metric,
-            peso: dogs.weight.metric,
-            alturaMax: dogs.height.metric.split(' - ')[1],
-            alturaMin: dogs.height.metric.split(' - ')[0],
-            pesoMax: dogs.weight.metric.split(' - ')[1],
-            pesoMin: dogs.weight.metric.split(' - ')[0],
-            edadMax: dogs.life_span.split(' - ')[1],
-            edadMin: dogs.life_span.split(' - ')[0],
-            colorFondo: dogs.bred_for,
-            años_de_vida: dogs.life_span,
-        };
-        return dataDog; */
+
 
 /*const createActivity = async (name, difficulty, duration, season, countriesId) => { //Formato de counrtiesID: [{id: id}, {id: id}]
   try{
@@ -150,7 +162,7 @@ const dog = await axios.get(`${url}/${id}`)
         if(!country) throw Error(`Country id ${id} is not a valid id`)
         else{countries.push(country)}
       }
-    })
+    })  
     const actividad = await Activity.create({name, difficulty, duration, season})
     if(actividad) {
       countries.forEach(async (country) => {

@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
     },
     imagen:{
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     name: {
@@ -26,35 +26,11 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    alturaMax: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    alturaMin: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    pesoMax: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    pesoMin: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    edadMax: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    edadMin: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     colorFondo: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    años_de_vida: {
+    anos_de_vida: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

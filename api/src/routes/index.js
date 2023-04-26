@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { API_KEY } = process.env
 const { Router } = require("express")
-const { getDogs, getDogsByRazaId, getDogsName, getTemperaments } = require('../controllers/dogs')
+const { getDogs, getDogsByRazaId, getDogsName, getTemperaments, createDog } = require('../controllers/dogs')
 const router = Router()
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -12,11 +12,11 @@ router.get('/dogs/', async (req, res) => {
     try {
         const { name } = req.query;
         console.log(name)
-        if(name) {
+        if (name) {
             const dogs = await getDogsName(name, API_KEY);
             res.status(200).json(dogs);
         }
-        else{
+        else {
             const dogs = await getDogs(name, API_KEY);
             res.status(200).json(dogs);
         }
@@ -37,13 +37,25 @@ router.get('/dogs/:idRaza', async (req, res) => {
 
 
 router.get('/temperaments', async (req, res) => {
-    try {   
+    try {
         const temperaments = await getTemperaments(API_KEY);
         res.status(200).json(temperaments);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
+
+
+router.post('/dogs', async (req, res) => {
+    try {
+        const { name, altura, peso, anos_de_vida, imagen, temperamentos } = req.body;
+        const dog = await createDog({name, altura, peso, anos_de_vida, imagen, temperamentos});
+        res.status(200).json(dog);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 
 getDogs.use = ('/dogs', router)
