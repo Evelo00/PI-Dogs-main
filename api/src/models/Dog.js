@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,10 +25,6 @@ module.exports = (sequelize) => {
     peso: {
       type: DataTypes.FLOAT,
       allowNull: false,
-    },
-    colorFondo: {
-      type: DataTypes.STRING,
-      allowNull: true
     },
     anos_de_vida: {
       type: DataTypes.INTEGER,
