@@ -33,26 +33,25 @@ router.get('/dogs/', async (req, res) => { //siempre trae entre 1 o varios perro
 
 router.get('/temperaments', async (req, res) => {
     try {
-        const dogs = await getAllDogs(API_KEY)
+        const dogs = await getAllDogs(API_KEY) // traigo todos los perros de la api
 
-        const temperaments = []
+        const temperaments = [] // creo un array vacio para guardar los temperamentos
 
-        for (let dog of dogs) {
+        for (let dog of dogs) { // recorro los perros
             if (dog.temperament) {
-                const tempArray = dog.temperament.split(',')
-                tempArray.forEach(temperament => temperaments.push(temperament.trim()))
+                const tempArray = dog.temperament.split(',') // separo los temperamentos por comas
+                tempArray.forEach(temperament => temperaments.push(temperament.trim())) // trim() elimina los espacios en blanco
             }
         };
-        const temperamentsUnics = new Set(temperaments)
-        const temperamentsFinal = []
+        const temperamentsUnics = new Set(temperaments) // elimino los repetidos
+        const temperamentsFinal = [] // creo un array vacio para guardar los temperamentos finales
         for (let temperament of temperamentsUnics) {
-            const tempsAdded = await Temperaments.create({ nombre: temperament });
-            temperamentsFinal.push(tempsAdded)
+            const tempsAdded = await Temperaments.create({ nombre: temperament }); // creo los temperamentos en la base de datos
+            temperamentsFinal.push(tempsAdded) // los agrego al array final
         };
-        res.status(200).json(temperamentsFinal);
+        res.status(200).json(temperamentsFinal); // muestro los temperamentos finales
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
+        res.status(500).send('Error interno del servidor'); // si hay un error muestro un mensaje
     }
 });
 

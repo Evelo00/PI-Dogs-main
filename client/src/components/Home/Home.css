@@ -1,0 +1,7 @@
+/* quiero que las cards se vean una al lado de la otra, y que se vean 3 en cada fila */
+/* y que mantengan todos un tamaño igual */
+.cards-container{
+    display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+}

@@ -19,7 +19,7 @@ const getApiInfo = async (API_KEY) => {
             altura: dog.height.metric,
             peso: dog.weight.metric,
             anos_de_vida: dog.life_span,
-            imagen: dog.image,
+            image: dog.image.url,
             temperament: dog.temperament
         }));
         return dataDog;
