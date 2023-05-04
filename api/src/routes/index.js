@@ -6,10 +6,6 @@ const { getAllDogs } = require('../controllers/dogs');
 const { default: axios } = require('axios');
 const router = Router()
 const url = 'https://api.thedogapi.com/v1/breeds'
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 
 router.get('/dogs/', async (req, res) => { //siempre trae entre 1 o varios perros y si no trae todos o suelta error
     try {
@@ -66,6 +62,7 @@ router.post('/dogs', async (req, res) => {
             peso,
             anos_de_vida,
             imagen,
+            createdInDb: true
         })
         temperamentos.forEach(async e => {
             // console.log("Elemento de temp",e)

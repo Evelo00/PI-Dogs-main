@@ -1,0 +1,39 @@
+/* Estilos para el contenedor principal */
+.lp-div {
+    background: url(../Assets/ladingDogs.jpg) no-repeat center center fixed;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-size: cover;
+    align-items: center;
+}
+
+/* Estilos para el título */
+.lp-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #041840;
+    backdrop-filter: blur(20px);
+
+}
+
+/* Estilos para el botón */
+.lp-button {
+    background: transparent;
+    backdrop-filter: blur(15px);
+        border: 1px solid #041840;
+        color: #041840;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+}
+
+/* Estilos para el botón cuando se le pasa el cursor por encima */
+.lp-button:hover {
+    background-color: #033159;
+    color:#F0F1F2;
+}
