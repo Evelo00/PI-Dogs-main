@@ -86,7 +86,14 @@ router.get('/dogs/:id', async (req, res) => {
         const dogsId = await dogsTotal.filter((dog) =>
             dog.id === (Number(id)));
         if (dogsId.length) {
-            res.status(200).json(dogsId)
+            function formatoDogs(dogsId) {
+                let obj = dogsId[0]
+                obj.temperament = obj.temperament.split(', ').map(e => e.trim())
+                // obj.temperament = obj.temperament.map(e => e.include('')
+                return obj
+            }
+            const dogF = formatoDogs(dogsId) 
+            res.status(200).json(dogF)
         } else {
             const findAllBD = await Dog.findAll({
                 include: {
@@ -100,7 +107,7 @@ router.get('/dogs/:id', async (req, res) => {
             if (findAllBD.length) {
                 const dogsIdBD = await findAllBD.filter((dog) =>
                     dog.id.toLowerCase() === id.toLowerCase());
-                dogsIdBD.length ? res.status(200).json(dogsIdBD) :
+                dogsIdBD.length ? res.status(200).json(dogsIdBD[0]) :
                     res.status(404).json({ error: 'No se encontró la raza' });
             }
         }

@@ -2,7 +2,8 @@
 const initialState = {
   characters: [],
   allCharacters: [],
-  temperaments: [], 
+  temperaments: [],
+  detail:{},
 }
 
 function rootReducer(state = initialState, action) {
@@ -29,7 +30,12 @@ function rootReducer(state = initialState, action) {
         }
     case 'FILTER_BY_TEMPERAMENT':
       const allCharacters = state.allCharacters;
-      const charactersFilter = action.payload === 'all' ? allCharacters : allCharacters.filter(el => el.temperament.includes(action.payload))
+      console.log(action.payload)
+      const charactersFilter = action.payload === 'all' ? allCharacters : allCharacters.filter(el => {
+        if(el.temperament){
+        return el.temperament.includes(action.payload)}
+      })
+      console.log(action.payload)
       return {
         ...state,
         characters: charactersFilter //traigo la info del back
@@ -44,7 +50,7 @@ function rootReducer(state = initialState, action) {
     case 'GET_DETAIL':
       return {
         ...state,
-        characters: action.payload
+        detail: { ...action.payload }
       }
     case 'ORDER_BY_NAME':
       let sortedArr = action.payload === 'asc' ? state.characters.sort(function (a, b) {

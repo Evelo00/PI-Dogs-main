@@ -1,18 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector, } from "react-redux";
 import { getDetail } from "../../actions";
 import { useEffect } from "react";
 
-export default function Detail(props) {
-    console.log(props)
+export default function Detail() {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getDetail(props.match.params.id));
-    }, [dispatch, props.match.params.id]);
-
+    const { id } = useParams()
     const myCharacter = useSelector((state) => state.detail);
+    
+    useEffect(() => {
+        dispatch(getDetail(id));
+        console.log(myCharacter)
+    }, [dispatch, id]);
+    
     return (
         <div>
             <h1>Detail</h1>
@@ -20,19 +22,20 @@ export default function Detail(props) {
                 <h2>{myCharacter.name}</h2>
                 <img src={myCharacter.image} alt="Not found" />
                 <h3>Temperaments:</h3>
+                {/* // transformar de string en un array y separar por comas quitandole la coma al primer elemento */}
                 <ul>
-                    {myCharacter.temperaments?.map((t) => (
-                        <li>{t.name}</li>
+                    {myCharacter.temperament?.map((t) => (  
+                        <li>{t}</li>
                     ))}
                 </ul>
                 <h3>Height:</h3>
-                <p>{myCharacter.height}</p>
+                <p>{myCharacter.altura}</p>
                 <h3>Weight:</h3>
-                <p>{myCharacter.weight}</p>
+                <p>{myCharacter.peso}</p>
                 <h3>Life span:</h3>
-                <p>{myCharacter.life_span}</p>
+                <p>{myCharacter.anos_de_vida}</p>
 
-            </div> : <h1>Loading...</h1>
+            </div> 
             <Link to="/home">
                 <button>Back</button>
             </Link>

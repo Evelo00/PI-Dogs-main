@@ -5,13 +5,12 @@ import { useState, useEffect } from "react";
 // importo los hooks de react redux para poder usarlos
 import { useDispatch, useSelector } from "react-redux";
 // importo las acciones que voy a usar
-import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated } from "../../actions";
+import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated, getTemperaments } from "../../actions";
 // Importo los componentes que voy a usar 
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import "./Home.css";
-import Detail from "../Detail/Detail";
 
 
 
@@ -39,7 +38,8 @@ export default function Home() {
     /* funcionalidades */
 
     useEffect(() => {
-        dispatch(getCharacters()); //reemplaza todo lo del mapdispatch to props y el use effect hace que se ejecute una sola vez   
+        dispatch(getCharacters())
+        dispatch(getTemperaments());
     }, [dispatch]);
 
 
@@ -79,13 +79,11 @@ export default function Home() {
 
 
             <select className="home-select" onChange={e => handleFilterTemperament(e)}>
-                <select onChange={(e) => handleFilterTemperament(e)}>
-                    <option value="temperaments">Temperaments</option>
-                    {temperaments.map((t) => (
-                        <option key={t.id} value={t.nombre}>{t.nombre}</option>
-                    ))}
-                </select>
                 <option value="all">Mostrar todos los temperamentos</option>
+                {temperaments?.map((t) => {
+                        console.log(t.nombre)
+                        return <option key={t.id} value={t.nombre}>{t.nombre}</option>
+                    })}
             </select>
 
 

@@ -76,9 +76,9 @@ export default function CreateCharacter() {
         })
     }
 
-    useEffect(() => {
-        dispatch(getTemperaments())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getTemperaments())
+    // }, [dispatch])
 
     return (
         <div>
