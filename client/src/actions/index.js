@@ -10,11 +10,39 @@ export function getCharacters(){
         })
     }
 }
+export function getNameCharacters(name){
+    return async function(dispatch){
+        try{
+            var json = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+            return dispatch({
+                type: 'GET_NAME_CHARACTERS',
+                payload: json.data //traigo la info del back
+            }) 
+        }catch(error){
+            console.log(error)
+        }
+    }
+}
 
 export function filterCharactersByTemperament(payload){
     return{
         type: 'FILTER_BY_TEMPERAMENT',
         payload
+    }
+}
+
+export function getDetail(id) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.get(`http://localhost:3001/dogs/${id}`);
+            return dispatch({
+                type: 'GET_DETAIL',
+                payload: json.data
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 }
 
@@ -36,3 +64,25 @@ export function orderByName(payload){
         payload
     }
 }
+
+
+
+/* traer temperamentos POST */
+
+export function getTemperaments() {
+    return async function(dispatch) {
+        var info = await axios.get('http://localhost:3001/temperaments', {
+
+        });
+    return dispatch({ type: "GET_TEMPERAMENTS", payload: info.data });
+}
+}
+
+export function postCharacter(payload){
+    return async function(dispatch){
+        const response = await axios.post('http://localhost:3001/dogs', payload);
+        console.log(response)
+        return response;
+    }
+}
+

@@ -35,5 +35,17 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: true,
     },
+    alturaMax: {
+      type: DataTypes.INTEGER,
+    },
+    alturaMin: {
+      type: DataTypes.INTEGER,
+    },
+    pesoMax: {
+      type: DataTypes.INTEGER,
+    },
+    pesoMin: {
+      type: DataTypes.INTEGER,
+    },
   });
 };

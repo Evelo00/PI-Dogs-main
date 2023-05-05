@@ -1,11 +1,17 @@
 import React, { Fragment } from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated } from "../../actions";
 import { Link } from "react-router-dom";
+// importo los hooks de react para poder usarlos
+import { useState, useEffect } from "react";
+// importo los hooks de react redux para poder usarlos
+import { useDispatch, useSelector } from "react-redux";
+// importo las acciones que voy a usar
+import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated } from "../../actions";
+// Importo los componentes que voy a usar 
 import Card from "../Card/Card";
-import "./Home.css";
 import Paginado from "../Paginado/Paginado.jsx";
+import SearchBar from "../SearchBar/SearchBar.jsx";
+import "./Home.css";
+import Detail from "../Detail/Detail";
 
 
 
@@ -14,8 +20,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const [orden, setOrden] = useState(''); //para mostrar el orden en el que se estan mostrando los personajes
     const allCharacters = useSelector((state) => state.characters); //similar a hacer el map.state to props
-    // const temperament = useSelector((state) => state.temperament); //similar a hacer el map.state to props
-
+    const temperaments = useSelector((state) => state.temperaments); //similar a hacer el map.state to props
 
     /* Paginado */
 
@@ -31,9 +36,12 @@ export default function Home() {
     /* Paginado */
 
 
+    /* funcionalidades */
+
     useEffect(() => {
         dispatch(getCharacters()); //reemplaza todo lo del mapdispatch to props y el use effect hace que se ejecute una sola vez   
     }, [dispatch]);
+
 
     function handleClick(e) {  //funcion para volver a cargar todos los personajes
         e.preventDefault();
@@ -46,6 +54,7 @@ export default function Home() {
 
     function handleFilterCreated(e) { // funcion para filtrar por creado o no creado
         dispatch(filterCreated(e.target.value));
+        setCurrentPage(1);
     }
 
     function handleOrder(e) { // funcion para ordenar de forma ascendente o descendente 
@@ -67,14 +76,19 @@ export default function Home() {
                 <option value="asc">Ascendente</option>
                 <option value="desc">Descendente</option>
             </select>
+
+
             <select className="home-select" onChange={e => handleFilterTemperament(e)}>
-                <option disabled value="">Ord por temperamento</option>
+                <select onChange={(e) => handleFilterTemperament(e)}>
+                    <option value="temperaments">Temperaments</option>
+                    {temperaments.map((t) => (
+                        <option key={t.id} value={t.nombre}>{t.nombre}</option>
+                    ))}
+                </select>
                 <option value="all">Mostrar todos los temperamentos</option>
-                {/* {
-                    temperament.length > 0 &&
-                    temperament.map((t, index) => <option key={index} value={t.nombre}>{t.nombre}</option>)
-                } */}
             </select>
+
+
             <select className="home-select" onChange={e => handleFilterCreated(e)}>
                 <option value="all">Mostrar todos los personajes</option>
                 <option value="api">Personajes de la API</option>
@@ -85,16 +99,17 @@ export default function Home() {
                 allCharacters={allCharacters.length}
                 paginado={paginado}
             />
+            <SearchBar />
             <div className="cards-container">
 
                 {
                     currentCharacters?.map((character) => {
                         return (
-                            <Link to={`/character/${character.id}`} key={character.id}>
+                            <Link to={ `/character/${character.id}`} key={character.id} className="link">
                                 <Fragment>
                                     <Card
                                         name={character.name}
-                                        image={character.image}
+                                        image={character.image ? character.image : <img src="https://www.seekpng.com/png/full/360-3605845_dog-holding-paper-in-mouth.png" alt="Not found" />}
                                         temperament={character.temperament}
                                         weight={character.peso}
                                     />
