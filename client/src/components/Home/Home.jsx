@@ -15,6 +15,7 @@ import "./Home.css";
 
 
 
+
 export default function Home() {
     const dispatch = useDispatch();
     const [orden, setOrden] = useState(''); //para mostrar el orden en el que se estan mostrando los personajes
