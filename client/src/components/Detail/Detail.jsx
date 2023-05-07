@@ -3,42 +3,53 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector, } from "react-redux";
 import { getDetail } from "../../actions";
 import { useEffect } from "react";
+import './Detail.css'
 
 export default function Detail() {
     const dispatch = useDispatch();
 
     const { id } = useParams()
     const myCharacter = useSelector((state) => state.detail);
-    
+
     useEffect(() => {
         dispatch(getDetail(id));
-        console.log(myCharacter)
     }, [dispatch, id]);
-    
-    return (
-        <div>
-            <h1>Detail</h1>
-            <div>
-                <h2>{myCharacter.name}</h2>
-                <img src={myCharacter.image} alt="Not found" />
-                <h3>Temperaments:</h3>
-                {/* // transformar de string en un array y separar por comas quitandole la coma al primer elemento */}
-                <ul>
-                    {myCharacter.temperament?.map((t) => (  
-                        <li>{t}</li>
-                    ))}
-                </ul>
-                <h3>Height:</h3>
-                <p>{myCharacter.altura}</p>
-                <h3>Weight:</h3>
-                <p>{myCharacter.peso}</p>
-                <h3>Life span:</h3>
-                <p>{myCharacter.anos_de_vida}</p>
 
-            </div> 
+    return (
+        <div className="detail">
+            <h1 className="title-detail">Detail</h1>
             <Link to="/home">
-                <button>Back</button>
+                <button className="buttonD">Back</button>
             </Link>
+            <div className="detail-container">
+                <div className="detail-right">
+                    <h2 className="name-detail">{myCharacter.name}</h2>
+                    <div className="hexagon">
+                        <img src={myCharacter.image} alt="Not found" className="detail-img" />
+                    </div>
+                </div>
+                <div className="detail-left">
+                    <h3 className="temperament-detail-T">Temperaments</h3>
+                    {/* // transformar de string en un array y separar por comas quitandole la coma al primer elemento */}
+                    <ul className="temperament-detail">
+                        {myCharacter.temperament?.map((t) => (
+                            <li key={t}>{t}</li>
+                        ))}
+                    </ul>
+                    <span className="span-detail">
+                        <span className="span-detail-C">
+                            <h3 className="height-detail">Height:</h3>
+                            <p className="height-detail-p">{myCharacter.altura}</p>
+                        </span>
+                        <span className="span-detail-C">
+                            <h3 className="height-detail">Weight:</h3>
+                            <p className="height-detail-p">{myCharacter.peso}</p>
+                        </span>
+                    </span>
+                    <h3 className="height-detail">Life span:</h3>
+                    <p className="height-detail-p">{myCharacter.anos_de_vida}</p>
+                </div>
+            </div>
         </div>
     )
 }

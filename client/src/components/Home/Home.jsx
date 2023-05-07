@@ -82,7 +82,6 @@ export default function Home() {
             <select className="home-select" onChange={e => handleFilterTemperament(e)}>
                 <option value="all">Mostrar todos los temperamentos</option>
                 {temperaments?.map((t) => {
-                        console.log(t.nombre)
                         return <option key={t.id} value={t.nombre}>{t.nombre}</option>
                     })}
             </select>
@@ -104,7 +103,7 @@ export default function Home() {
                 {
                     currentCharacters?.map((character) => {
                         return (
-                            <Link to={ `/character/${character.id}`} key={character.id} className="link">
+                            <Link to={ `/character/${character.id}`} key={character.id} className="link-home">
                                 <Fragment>
                                     <Card
                                         name={character.name}

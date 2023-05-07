@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postCharacter, getTemperaments } from '../../actions'
+import { postCharacter  } from '../../actions'
 // import './CreateCharacter.css'
 
 
@@ -76,9 +76,6 @@ export default function CreateCharacter() {
         })
     }
 
-    // useEffect(() => {
-    //     dispatch(getTemperaments())
-    // }, [dispatch])
 
     return (
         <div>
