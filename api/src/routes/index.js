@@ -52,7 +52,7 @@ router.get('/temperaments', async (req, res) => {
 });
 
 router.post('/dogs', async (req, res) => {
-    let { nombre, altura, peso, anos_de_vida, imagen, temperamentos } = req.body;
+    let { nombre, altura, peso, anos_de_vida, imagen, temperamentos, alturaMax, alturaMin, pesoMax, pesoMin } = req.body;
 
     try {
 
@@ -60,6 +60,10 @@ router.post('/dogs', async (req, res) => {
             nombre,
             altura,
             peso,
+            alturaMax,
+            alturaMin,
+            pesoMax,
+            pesoMin,
             anos_de_vida,
             imagen,
             createdInDb: true

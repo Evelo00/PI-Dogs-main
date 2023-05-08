@@ -1,39 +1,86 @@
-
 .home {
-    background: url(../Assets/ladingDogs.jpg)
-        center center/cover no-repeat fixed;
+    font-family: 'poppins', sans-serif;
+    background-image: linear-gradient(to right, #041840 0%, #020E26 100%);
     height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-.link-home{
+.link-home {
     text-decoration: none;
-    color: #fff;
+    color: #F0F1F2;
+}
+.home-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
 }
 
-.home-title {
-    margin-top: 40px;
+.home-orden{
+    display: flex;
+    align-items: center;
+    padding: 20px;
 }
-
-
+.home-title{
+    text-align: center;
+    padding: 20px;
+    font-size: 48px;
+    color: #F0F1F2;
+    margin: 0;
+}
 .home-btn {
-    margin-top: 20px;
-    background-color: #1e90ff;
-    color: #fff;
+    background-color: #033159;
+    color: #F0F1F2;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
+    font-size: 14px;
+    margin: 0 50px;
+    text-decoration: none;
     cursor: pointer;
+}
+.home-btn-2 {
+    background-color: #033159;
+    color: #F0F1F2;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.home-btn-2:hover{
+    background-color: #F0F1F2;
+    color: #033159;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+
+.home-btn:hover {
+    background-color: #F0F1F2;
+    color: #033159;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+.filters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .home-select {
-    margin-left: 20px;
+    margin-left: 50px;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #020E26;
+    border: 1px solid #F0F1F2;
     background: transparent;
     cursor: pointer;
     height: 40px;
     width: 200px;
+    color: #F0F1F2;
 }
 
 .home-select:focus {
@@ -41,12 +88,11 @@
 }
 
 .home-select option {
-    background: #fff;
-    color: #000;
+    background: #F0F1F2;
+    color: #020E26;
+
 }
 
-/* cards mas pequeñas y que entren perfecto en la pantalla sin necesidad de hacer scroll horizontal */
-/* el grid deben ser 2 lineas de 4 elementos*/
 .cards-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -55,5 +101,4 @@
     margin: 0 auto;
     max-width: 1200px;
     text-decoration: none;
-
 }

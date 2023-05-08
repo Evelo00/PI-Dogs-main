@@ -4,10 +4,8 @@ import axios from 'axios';
 export function getCharacters(){
     return async function(dispatch){
         let json = await axios.get('http://localhost:3001/dogs/',);
-        return dispatch({
-            type: 'GET_CHARACTERS',
-            payload: json.data //traigo la info del back
-        })
+        return dispatch({ type: "GET_CHARACTERS", payload: json.data });
+        
     }
 }
 export function getNameCharacters(name){

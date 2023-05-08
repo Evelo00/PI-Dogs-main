@@ -48,6 +48,9 @@
     width: 70%;
     height: 70%;
     background-image: linear-gradient(to right, #020E26, #041840);
+    /* background: url(../Assets/dogwall.jpeg); */
+    background-size: cover;
+    opacity: 0.9;
     padding: 20px;
     margin: 20px;
     border: 2px solid #041840;
@@ -193,9 +196,9 @@ animation: move 2s ease-in-out infinite;
 
     100% {
         box-shadow:
-        inset 0 0 10px rgba(255, 255, 255, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.842),
         inset 0 0 20px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.842),
         0 0 20px rgba(0, 0, 0, 0.5);
     }
 }

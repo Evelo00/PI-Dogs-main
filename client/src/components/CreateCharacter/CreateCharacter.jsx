@@ -1,22 +1,46 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postCharacter  } from '../../actions'
+import { postCharacter } from '../../actions'
 // import './CreateCharacter.css'
 
 
-function validate(input) { // funcion para validar los inputs del form
+function validate(input) {
     let errors = {}
     if (!input.nombre) {
         errors.nombre = 'Name is required'
-    } else if (!input.altura.trim()) {
-        errors.altura = 'Height is required'
-    } else if (!input.peso) {
-        errors.peso = 'Weight is required'
-    } else if (!input.anos_de_vida) {
+    } else if (!/^[a-zA-Z\s]*$/.test(input.nombre)) {
+        errors.nombre = 'Name is invalid'
+    }
+    if (!input.alturaMin) {
+        errors.alturaMin = 'Min height is required'
+    } else if (!/^[0-9]*$/.test(input.alturaMin)) {
+        errors.alturaMin = 'Min height is invalid'
+    }
+    if (!input.alturaMax) {
+        errors.alturaMax = 'Max height is required'
+    } else if (!/^[0-9]*$/.test(input.alturaMax)) {
+        errors.alturaMax = 'Max height is invalid'
+    }
+    if (!input.pesoMin) {
+        errors.pesoMin = 'Min weight is required'
+    } else if (!/^[0-9]*$/.test(input.pesoMin)) {
+        errors.pesoMin = 'Min weight is invalid'
+    }
+    if (!input.pesoMax) {
+        errors.pesoMax = 'Max weight is required'
+    } else if (!/^[0-9]*$/.test(input.pesoMax)) {
+        errors.pesoMax = 'Max weight is invalid'
+    }
+    if (!input.anos_de_vida) {
         errors.anos_de_vida = 'Life span is required'
-    } else if (!input.imagen) {
+    } else if (!/^[0-9]*$/.test(input.anos_de_vida)) {
+        errors.anos_de_vida = 'Life span is invalid'
+    }
+    if (!input.imagen) {
         errors.imagen = 'Image is required'
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(input.imagen)) {
+        errors.imagen = 'Image is invalid'
     }
     return errors
 }
@@ -30,7 +54,11 @@ export default function CreateCharacter() {
     const [input, setInput] = useState({
         nombre: '',
         altura: '',
+        alturaMin: '',
+        alturaMax: '',
         peso: '',
+        pesoMin: '',
+        pesoMax: '',
         anos_de_vida: '',
         imagen: '',
         temperamentos: [],
@@ -61,7 +89,11 @@ export default function CreateCharacter() {
         setInput({
             nombre: '',
             altura: '',
+            alturaMin: '',
+            alturaMax: '',
             peso: '',
+            pesoMin: '',
+            pesoMax: '',
             anos_de_vida: '',
             imagen: '',
             temperamentos: [],
@@ -83,60 +115,132 @@ export default function CreateCharacter() {
             <h1>Create your Dog</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label>Nombre:</label>
+                    <label htmlFor="nombre">Nombre:</label>
                     <input
                         type="text"
+                        id="nombre"
                         value={input.nombre}
                         name="nombre"
                         onChange={(e) => handleChange(e)}
+                        required
                     />
                     {errors.nombre && ( // si hay errores los muestro
                         <p>{errors.nombre}</p>
                     )}
                 </div>
                 <div>
-                    <label>Altura:</label>
+                    <label htmlFor="altura">Altura de tu mascota:</label>
                     <input
-                        type="text"
+                        type="number"
+                        id="altura"
                         value={input.altura}
                         name="altura"
                         onChange={(e) => handleChange(e)}
+                        min="0"
+                        max="100"
+                        required
                     />
                     {errors.altura && (
                         <p>{errors.altura}</p>
                     )}
                 </div>
                 <div>
-                    <label>Peso:</label>
+                    <label htmlFor="alturaMin">Altura minima:</label>
                     <input
-                        type="text"
+                        type="number"
+                        id="alturaMix"
+                        value={input.alturaMin}
+                        name="alturaMin"
+                        onChange={(e) => handleChange(e)}
+                        min="0"
+                    />
+                    {errors.altura && (
+                        <p>{errors.altura}</p>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="alturaMax">Altura maxima:</label>
+                    <input
+                        type="number"
+                        id="alturaMax"
+                        value={input.alturaMax}
+                        name="alturaMax"
+                        onChange={(e) => handleChange(e)}
+                        min="0"
+                        max="100"
+                        required
+                    />
+                    {errors.altura && (
+                        <p>{errors.altura}</p>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="peso">Peso de tu mascota:</label>
+                    <input
+                        type="number"
+                        id="peso"
                         value={input.peso}
                         name="peso"
                         onChange={(e) => handleChange(e)}
+                        min="0"
                     />
                     {errors.peso && (
                         <p>{errors.peso}</p>
                     )}
                 </div>
                 <div>
-                    <label>Años de vida:</label>
+                    <label htmlFor="pesoMin">Peso minimo:</label>
                     <input
-                        type="text"
+                        type="number"
+                        id="pesoMin"
+                        value={input.pesoMin}
+                        name="pesoMin"
+                        onChange={(e) => handleChange(e)}
+                        min="0"
+                    />
+                    {errors.peso && (
+                        <p>{errors.peso}</p>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="pesoMax">Peso maximo:</label>
+                    <input
+                        type="number"
+                        id="pesoMax"
+                        value={input.pesoMax}
+                        name="pesoMax"
+                        onChange={(e) => handleChange(e)}
+                        min="0"
+                    />
+                    {errors.peso && (
+                        <p>{errors.peso}</p>
+                    )}
+                </div>
+                
+                <div>
+                    <label htmlFor="anos_de_vida">Años de vida:</label>
+                    <input
+                        type="number"
+                        id="anos_de_vida"
                         value={input.anos_de_vida}
                         name="anos_de_vida"
                         onChange={(e) => handleChange(e)}
+                        min="0"
+                        required
                     />
                     {errors.anos_de_vida && (
                         <p>{errors.anos_de_vida}</p>
                     )}
                 </div>
                 <div>
-                    <label>Imagen:</label>
+                    <label htmlFor="imagen">Imagen:</label>
                     <input
                         type="text"
+                        id="imagen"
                         value={input.imagen}
                         name="imagen"
                         onChange={(e) => handleChange(e)}
+                        required
                     />
                     {errors.imagen && (
                         <p>{errors.imagen}</p>
@@ -153,12 +257,12 @@ export default function CreateCharacter() {
 
                 <button type="submit">Create Dog</button>
             </form>
-                {input && input.temperamentos.map((t) => (
-                    <div>
-                        <p>{t}</p>
-                        <button onClick={() => handleDelete(t)}>X</button>
-                    </div>
-                ))}
+            {input && input.temperamentos.map((t) => (
+                <div>
+                    <p>{t + ' ,'}</p>
+                    <button onClick={() => handleDelete(t)}>X</button>
+                </div>
+            ))}
         </div>
     )
 }
