@@ -41,6 +41,7 @@ export default function Home() {
     useEffect(() => {
         dispatch(getCharacters())
         dispatch(getTemperaments());
+        // console.log(allCharacters)
     }, [dispatch]);
 
 
@@ -103,19 +104,21 @@ export default function Home() {
 
                 {
                     currentCharacters?.map((character) => {
+                        
                         return (
                             <Link to={`/character/${character.id}`} key={character.id} className="link-home">
                                 <Fragment>
                                     <Card
                                         name={character.name ? character.name : character.nombre ? character.nombre : "No name"}
                                         image={character.image ? character.image : character.imagen ? character.imagen : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"}
-                                        temperament={character.temperament ? character.temperament : character.temperamentos ? character.temperamentos : "No temperament"}
+                                        temperament={character.temperament ? character.temperament : character.temperaments ? character.temperaments.map(t => t.nombre).join(", ") : "No temperament"}
                                         weight={character.peso}
                                     />
                                 </Fragment>
                             </Link>
                         );
                     })
+                    
                 }
 
             </div>

@@ -53,7 +53,7 @@ router.get('/temperaments', async (req, res) => {
 
 router.post('/dogs', async (req, res) => {
     let { nombre, altura, peso, anos_de_vida, imagen, temperamentos, alturaMax, alturaMin, pesoMax, pesoMin } = req.body;
-
+console.log(temperamentos)
     try {
 
         let CrearDog = await Dog.create({
@@ -68,17 +68,20 @@ router.post('/dogs', async (req, res) => {
             imagen,
             createdInDb: true
         })
-        temperamentos.forEach(async e => {
-            // console.log("Elemento de temp",e)
-            const dogTemps = await Temperaments.findAll({
+        for (let e of temperamentos) {
+            const dogTemps = await Temperaments.findOne({
                 where: { nombre: e }
             })
+            console.log(e, dogTemps)
+            //validad que no se repitan los temperamentos
             //unir con la raza que recien creamos
-            await CrearDog.addTemperament(dogTemps)
-        })
+            const perroCreado = await CrearDog.addTemperament(dogTemps)
+            console.log(perroCreado);
+        }
         res.status(200).json(CrearDog);
     }
     catch (error) {
+        console.log(error)
         res.status(400).json(error.message)
     }
 });

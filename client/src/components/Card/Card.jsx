@@ -3,7 +3,7 @@ import "./Card.css";
 
 
 export default function Card({ name, image, temperament, weight }) { // se le pasa como props el name, image, temperament y weight
-    // console.log(image)
+    console.log(temperament)
     return (
         // ! se crea una card con los datos que se le pasan como props
             //name para la APi y nombre para la base de datos

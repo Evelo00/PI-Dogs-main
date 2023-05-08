@@ -13,6 +13,7 @@ export default function Detail() {
 
     useEffect(() => {
         dispatch(getDetail(id));
+        console.log(myCharacter)
     }, [dispatch, id]);
 
     return (
@@ -31,14 +32,12 @@ export default function Detail() {
                 </div>
                 <div className="detail-left">
                     <h3 className="temperament-detail-T">Temperaments</h3>
-                    {/* // transformar de string en un array y separar por comas quitandole la coma al primer elemento 
-                    // los temperament en la base de datos se llaman temperamentos, debe mostrar ambas opciones o un mensaje de no temperament
-                    */}
+                    {/* // transformar de string en un array y separar por comas quitandole la coma al primer elemento                     */}
                     <ul className="temperament-detail">
                         {myCharacter.temperament ? myCharacter.temperament.map((t) => {
                             return <li key={t} className="temperament-detail-li">{t}</li>
-                        }) : myCharacter.temperamentos ? myCharacter.temperamentos.map((t) => {
-                            return <li key={t} className="temperament-detail-li">{t}</li>
+                        }) : myCharacter.temperaments ? myCharacter.temperaments.map((t) => {
+                            return <li key={t} className="temperament-detail-li">{t.nombre}</li>
                         }) : <li className="temperament-detail-li">No temperament</li>}
                     </ul>
                     <span className="span-detail">

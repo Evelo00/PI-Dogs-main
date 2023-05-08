@@ -74,17 +74,40 @@ export default function CreateCharacter() {
             [e.target.name]: e.target.value
         }))
     }
+    // un forEach para recorrer los temperamentos y un map para mostrarlos en el selects
 
+    // crear un array vacio
     function handleSelect(e) { // funcion para manejar los cambios en los select del form
-        setInput({
-            ...input,
-            temperamentos: [...input.temperamentos, e.target.value]
+        const select = e.target;
+        let optionSelect;
+        const newTemp = [];
+        console.log({
+            evento: select.options,
+            options: select.options[select.selectedIndex],
+            value: select.options[select.selectedIndex].value,
         })
+        // Array.from(select.options).forEach((option) => {
+        //     if (option.selected) {
+        //         optionSelect = option.value;
+        //         if (!newTemp.includes(optionSelect)) {
+        //             newTemp.push(optionSelect)
+        //         }
+        //     }
+        // });
+        if (!input.temperamentos.includes(e.target.value)) {
+            console.log(e.target.value)
+            console.log(input)
+            setInput((prevState) => ({
+                ...prevState,
+                temperamentos: [...prevState.temperamentos, e.target.value],
+            }));
+        }
     }
 
     function handleSubmit(e) { // funcion para manejar el submit del form
         e.preventDefault()
         dispatch(postCharacter(input))
+        console.log(input)
         alert('Dog Created!!')
         setInput({
             nombre: '',
@@ -216,7 +239,7 @@ export default function CreateCharacter() {
                         <p>{errors.peso}</p>
                     )}
                 </div>
-                
+
                 <div>
                     <label htmlFor="anos_de_vida">Años de vida:</label>
                     <input
@@ -246,14 +269,19 @@ export default function CreateCharacter() {
                         <p>{errors.imagen}</p>
                     )}
                 </div>
+                {/* // validad que si el temperamento ya esta en el array no lo agregue de nuevo y que si no esta lo agregue al array y tener en cuenta que en la base de datos los temperaments de los perros se llaman "temperamentos" y mostrarlos en una lista */}
                 <label>Temperamentos:</label>
-                <select onChange={(e) => handleSelect(e)}>
-                    <option key="temperaments" value="temperaments">Temperamentos</option>
+                <select multiple onChange={(e) => handleSelect(e)}>
                     {temperaments.map((t) => (
-                        <option key={t.id} value={t.nombre}>{t.nombre}</option>
+                        <option value={t.nombre}>{t.nombre}</option>
                     ))}
                 </select>
-                <ul><li>{input.temperamentos.map((t => t + ' ,'))}</li></ul>
+                <ul>
+                    {Array.isArray(input.temperamentos) && input.temperamentos.map((t) => (
+                        <li key={t}>{t}</li>
+                    ))}
+                </ul>
+                {/* <ul><li>{input.temperamentos.map((t => t + ' ,'))}</li></ul> */}
 
                 <button type="submit">Create Dog</button>
             </form>
