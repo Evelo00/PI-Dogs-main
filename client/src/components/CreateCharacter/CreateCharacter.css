@@ -1,0 +1,86 @@
+.all-cc{
+    display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url(../Assets/ladingDogs.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        transition: all 0.3s ease;
+}
+
+.h1-cc{
+    font-size: 2rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    color: #F0F1F2;
+}
+
+.form-cc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 2rem;
+    height: 500px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #020E26, #041840);
+    opacity: 0.9;
+    width: 500px;
+}
+
+/* .div-cc{
+    flex-direction: column;
+} */
+
+.container-cc {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.label-cc {
+    font-size: 1.1rem;
+    margin-right: 5px;
+    color: #F0F1F2;
+}
+
+.input-cc{
+    width: 200px;
+    height: 20px;
+    border-radius:  5px;
+    border: 2px solid black;
+}
+
+.select-cc{
+    width: 100%;
+    height: auto;
+    border-radius:  5px;
+    border: 1px solid black;
+}
+
+.submit-cc{
+    width: 150px;
+    height: 30px;
+    border-radius:  10px;
+    border: 1px solid black;
+    margin: 0 auto;
+    background-color: blue;
+    color: #F0F1F2;
+    font-size: 1rem;
+}
+
+.button-cc{
+    width: 100px;
+    height: 20px;
+    font-weight: strong;
+    border-radius:  5px;
+    border: 1px solid black;
+    margin-bottom: 1rem;
+    background-color: blue;
+    color: white;
+    font-size: 1rem;
+}

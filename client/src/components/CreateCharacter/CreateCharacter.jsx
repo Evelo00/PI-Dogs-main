@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { postCharacter } from '../../actions'
-// import './CreateCharacter.css'
+import './CreateCharacter.css'
 
 
 function validate(input) {
@@ -133,13 +133,13 @@ export default function CreateCharacter() {
 
 
     return (
-        <div>
-            <Link to='/home'> <button>Go Home</button> </Link>
-            <h1>Create your Dog</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label htmlFor="nombre">Nombre:</label>
-                    <input
+        <div className='all-cc'>
+            <h1 className='h1-cc' >Create your Dog</h1>
+            <Link to='/home'> <button className='button-cc'>Go Home</button> </Link>
+            <form onSubmit={(e) => handleSubmit(e)} className='form-cc'>
+                <div className='container-cc div-cc'>
+                    <label htmlFor="nombre" className='label-cc'>Nombre:</label>
+                    <input className='input-cc'
                         type="text"
                         id="nombre"
                         value={input.nombre}
@@ -147,13 +147,13 @@ export default function CreateCharacter() {
                         onChange={(e) => handleChange(e)}
                         required
                     />
+                </div>
                     {errors.nombre && ( // si hay errores los muestro
                         <p>{errors.nombre}</p>
                     )}
-                </div>
-                <div>
-                    <label htmlFor="altura">Altura de tu mascota:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="altura" className='label-cc'>Altura de tu mascota:</label>
+                    <input className='input-cc'
                         type="number"
                         id="altura"
                         value={input.altura}
@@ -167,9 +167,9 @@ export default function CreateCharacter() {
                         <p>{errors.altura}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="alturaMin">Altura minima:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="alturaMin" className='label-cc'>Altura minima:</label>
+                    <input className='input-cc'
                         type="number"
                         id="alturaMix"
                         value={input.alturaMin}
@@ -181,9 +181,9 @@ export default function CreateCharacter() {
                         <p>{errors.altura}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="alturaMax">Altura maxima:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="alturaMax" className='label-cc'>Altura maxima:</label>
+                    <input className='input-cc'
                         type="number"
                         id="alturaMax"
                         value={input.alturaMax}
@@ -197,9 +197,9 @@ export default function CreateCharacter() {
                         <p>{errors.altura}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="peso">Peso de tu mascota:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="peso" className='label-cc'>Peso de tu mascota:</label>
+                    <input className='input-cc'
                         type="number"
                         id="peso"
                         value={input.peso}
@@ -211,9 +211,9 @@ export default function CreateCharacter() {
                         <p>{errors.peso}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="pesoMin">Peso minimo:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="pesoMin" className='label-cc'>Peso minimo:</label>
+                    <input  className='input-cc'
                         type="number"
                         id="pesoMin"
                         value={input.pesoMin}
@@ -225,9 +225,9 @@ export default function CreateCharacter() {
                         <p>{errors.peso}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="pesoMax">Peso maximo:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="pesoMax" className='label-cc'>Peso maximo:</label>
+                    <input className='input-cc'
                         type="number"
                         id="pesoMax"
                         value={input.pesoMax}
@@ -240,9 +240,9 @@ export default function CreateCharacter() {
                     )}
                 </div>
 
-                <div>
-                    <label htmlFor="anos_de_vida">Años de vida:</label>
-                    <input
+                <div className='container-cc'>
+                    <label htmlFor="anos_de_vida" className='label-cc'>Años de vida:</label>
+                    <input className='input-cc'
                         type="number"
                         id="anos_de_vida"
                         value={input.anos_de_vida}
@@ -255,9 +255,9 @@ export default function CreateCharacter() {
                         <p>{errors.anos_de_vida}</p>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="imagen">Imagen:</label>
-                    <input
+                <div className='container-cc '>
+                    <label htmlFor="imagen" className='label-cc'>Imagen:</label>
+                    <input className='input-cc'
                         type="text"
                         id="imagen"
                         value={input.imagen}
@@ -270,8 +270,8 @@ export default function CreateCharacter() {
                     )}
                 </div>
                 {/* // validad que si el temperamento ya esta en el array no lo agregue de nuevo y que si no esta lo agregue al array y tener en cuenta que en la base de datos los temperaments de los perros se llaman "temperamentos" y mostrarlos en una lista */}
-                <label>Temperamentos:</label>
-                <select multiple onChange={(e) => handleSelect(e)}>
+                <label className='label-cc'>Temperamentos:</label>
+                <select multiple onChange={(e) => handleSelect(e)} className='select-cc'>
                     {temperaments.map((t) => (
                         <option value={t.nombre}>{t.nombre}</option>
                     ))}
@@ -283,7 +283,7 @@ export default function CreateCharacter() {
                 </ul>
                 {/* <ul><li>{input.temperamentos.map((t => t + ' ,'))}</li></ul> */}
 
-                <button type="submit">Create Dog</button>
+                <button type="submit" className='submit-cc'>Create Dog</button>
             </form>
             {input && input.temperamentos.map((t) => (
                 <div>

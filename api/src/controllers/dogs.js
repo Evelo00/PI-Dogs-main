@@ -28,10 +28,6 @@ const getApiInfo = async (API_KEY) => {
     }
 }
 
-//raw true hace que no traiga los datos de la tabla intermedia
-//modificar api
-
-//Card preguntarle si es un string o un array
 
 const getDbInfo = async () => {
     return await Dog.findAll({
