@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector, } from "react-redux";
-import { getDetail } from "../../actions";
+import { getDetail } from "../../actions/actions";
 import { useEffect } from "react";
 import './Detail.css'
 
@@ -37,7 +37,7 @@ export default function Detail() {
                         {myCharacter.temperament ? myCharacter.temperament.map((t) => {
                             return <li key={t} className="temperament-detail-li">{t}</li>
                         }) : myCharacter.temperaments ? myCharacter.temperaments.map((t) => {
-                            return <li key={t} className="temperament-detail-li">{t.nombre}</li>
+                            return <li key={t.nombre} className="temperament-detail-li">{t.nombre}</li>
                         }) : <li className="temperament-detail-li">No temperament</li>}
                     </ul>
                     <span className="span-detail">

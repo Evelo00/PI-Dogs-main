@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postCharacter } from '../../actions'
+import { postCharacter } from '../../actions/actions'
 import './CreateCharacter.css'
 import validate from './validate'
 

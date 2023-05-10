@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // importo los hooks de react redux para poder usarlos
 import { useDispatch, useSelector } from "react-redux";
 // importo las acciones que voy a usar
-import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated, getTemperaments } from "../../actions";
+import { getCharacters, filterCharactersByTemperament, orderByName, filterCreated, getTemperaments } from "../../actions/actions";
 // Importo los componentes que voy a usar 
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado.jsx";
